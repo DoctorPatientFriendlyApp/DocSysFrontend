@@ -1,42 +1,82 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
+/* Reset & global setup */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Make the entire app occupy full viewport */
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+}
+
+/* Use a clean font and neutral background */
+body {
+  font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+  overflow-x: hidden;
+}
+
+/* Let Bootstrap containers use full width where needed */
+.container-fluid {
   padding: 2rem;
-  text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Reusable utility classes */
+.text-primary {
+  color: #0d6efd !important;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.text-secondary {
+  color: #6c757d !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.bg-light {
+  background-color: #f8f9fa !important;
 }
 
+.bg-primary {
+  background-color: #0d6efd !important;
+}
+
+.btn {
+  border-radius: 10px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Sidebar layout helper */
+.sidebar {
+  min-height: 100vh;
+  width: 240px;
+}
+
+/* Card shadow effect */
 .card {
-  padding: 2em;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-.read-the-docs {
-  color: #888;
+/* Smooth transitions for page switches */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Make text center by default only where needed */
+.text-center {
+  text-align: center;
 }
