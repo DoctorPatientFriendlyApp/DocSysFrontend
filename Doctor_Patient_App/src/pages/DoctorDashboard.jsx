@@ -23,7 +23,7 @@ export default function DoctorDashboard() {
 
       <div className="p-4 flex-grow-1 bg-light w-100">
         <h2 className="text-primary">
-          {doctor ? ` Dr. ${doctor.name} ` : " Doctor "}
+          {doctor ? `Dr.${doctor.name} ` : " Doctor "}
         </h2>
         <p className="text-muted">{doctor?.specialization}</p>
         <hr />

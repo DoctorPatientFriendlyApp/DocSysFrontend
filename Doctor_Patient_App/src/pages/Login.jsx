@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginDoctor } from "../services/doctorService";
 import { loginPatient } from "../services/patientService";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "", role: "DOCTOR" });
@@ -27,12 +28,12 @@ const Login = () => {
 
     console.log(resp);
     localStorage.setItem("user", JSON.stringify(resp));
-    alert(`Welcome ${resp.name || resp.email}!`);
+    toast.success(`Welcome ${resp.name || resp.email}!`);
 
     navigate(form.role === "DOCTOR" ? "/doctor/home" : "/patient/home");
   } catch (err) {
     console.error("Login error:", err);
-    alert("Invalid email or password!");
+    toast.error("Invalid email or password!");
   }
 };
 
@@ -85,6 +86,13 @@ const Login = () => {
           Login
         </button>
       </form>
+     <Link
+       to={form.role === "DOCTOR" ? "/doctors/add" : "/patients/add"}
+         className="btn btn-link mt-3 d-block text-center "
+       >
+       Not registered? Register as {form.role === "DOCTOR" ? "Doctor" : "Patient"} 
+     </Link>
+
     </div>
   );
 };

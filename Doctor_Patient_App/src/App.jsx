@@ -1,5 +1,10 @@
 import React from "react";
+// ✅ Import Toastify
+import AddExistingPatients from "./components/AddExistingPatients";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import DoctorPatients from "./pages/DoctorPatients";
 import Login from "./pages/Login";
 import DoctorProfile from "./pages/DoctorProfile";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -27,12 +32,19 @@ function App() {
         <Route path="/doctors" element={<DoctorList />} />
         <Route path="/doctors/add" element={<AddDoctor />} />
         <Route path="/patients" element={<PatientList />} />
-        <Route path="/patients/add" element={<AddPatient />} />
         <Route path="/doctor/home" element={<DoctorDashboard />} />
         <Route path="/patient/home" element={<PatientDashboard />} />
         <Route path="/doctors/:id" element={<DoctorProfile />} />
         <Route path="/doctors/:id/edit/" element={<EditDoctor />} />
+
+        <Route path="/doctor/patients" element={<DoctorPatients />} />
+       <Route path="/doctor/add-existing" element={<AddExistingPatients />} />
+                                   {/* optional doctorId */}
+        <Route path="/patients/add/:doctorId?" element={<AddPatient />} />
+      
       </Routes>
+
+        <ToastContainer position="top-center" autoClose={2000} />
     </>
   );
 }

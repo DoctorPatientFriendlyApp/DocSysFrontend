@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { addDoctor } from "../services/doctorService";
 
 function AddDoctor() {
@@ -51,7 +51,7 @@ function AddDoctor() {
 
   return (
     <div className="container mt-3">
-      <h2>Add Doctor</h2>
+      <h2>Register Doctor</h2>
       <form onSubmit={handleSubmit} className="p-3 border rounded">
         <input type="email" name="email" placeholder="Email" onChange={handleChange} className="form-control mb-2" required />
         <input type="password" name="password" placeholder="Password" onChange={handleChange} className="form-control mb-2" required />
@@ -76,8 +76,11 @@ function AddDoctor() {
 
         <input name="patientIds" placeholder="Patient IDs (comma-separated)" onChange={handleChange} className="form-control mb-2" />
 
-        <button type="submit" className="btn btn-success w-100">Add Doctor</button>
+        <button type="submit" className="btn btn-success w-100"> Register Doctor</button>
       </form>
+       <Link to="/login" className="btn btn-link mt-3 d-block text-center">
+         already registered? Login here
+      </Link>
     </div>
   );
 }

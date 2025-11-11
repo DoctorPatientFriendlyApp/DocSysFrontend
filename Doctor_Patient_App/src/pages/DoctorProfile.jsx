@@ -49,7 +49,7 @@ function DoctorProfile() {
           />
 
           {/* Doctor Info */}
-          <h3 className="card-title text-primary">{doctor.name}</h3>
+          <h3 className="card-title text-primary">Dr. {doctor.name}</h3>
           <p className="text-muted mb-1 fs-5">{doctor.specialization}</p>
           <hr />
 

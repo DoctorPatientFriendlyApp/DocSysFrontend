@@ -31,3 +31,17 @@ export const updateDoctor = async (id, doctorData) => {
   const res = await axios.put(`${BASE_URL}/doctors/${id}/edit`, doctorData);
   return res.data;
 }
+
+export const getPatientsByDoctorId = async (doctorId) => {
+  const res = await axios.get(`${BASE_URL}/patients/doctor/${doctorId}`);
+  return res;
+}
+
+
+export const getUnassignedPatients = async () => {
+  return await axios.get(`${BASE_URL}/patients/unassigned`);
+};
+
+export const assignPatientToDoctor = async (patientId, doctorId) => {
+  return await axios.post(`${BASE_URL}/doctors/${doctorId}/assignpatienttodoctor/${patientId}`);
+};

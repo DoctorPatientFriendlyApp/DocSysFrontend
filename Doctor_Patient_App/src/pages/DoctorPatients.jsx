@@ -1,0 +1,69 @@
+import React, { useEffect, useState } from "react";
+import { getPatientsByDoctorId } from "../services/doctorService";  
+import { useNavigate } from 'react-router-dom';
+
+const DoctorPatients = () => {
+ 
+  const [patients, setPatients] = useState([]);
+  const navigate = useNavigate();
+  const doctor = JSON.parse(localStorage.getItem("user"));
+
+  useEffect(() => {
+    const fetchPatients = async () => {
+      try {
+        if (!doctor?.id) return;
+        const resp = await getPatientsByDoctorId(doctor.id);
+        console.log("Patients API response:", resp.data);
+        setPatients(resp.data);
+      } catch (err) {
+        console.error("Error fetching patients:", err);
+      }
+    };
+
+    // ✅ fetch only once after mount
+    fetchPatients();
+  }, []); // <-- empty dependency array prevents infinite re-renders
+
+  return (
+    <div className="container mt-4">
+      <h2 className="mb-4 text-center">My Patients</h2>
+     
+    <div className="d-flex justify-content-end mb-3">
+       <button className="btn btn-danger"
+              onClick={() => navigate('/doctor/home')} >
+           Back to Dashboard
+       </button>
+    </div>
+
+
+      {Array.isArray(patients) && patients.length > 0 ? (
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Age</th>
+              <th>Diagnosis</th>
+            </tr>
+          </thead>
+          <tbody>
+            {patients.map((p, index) => (
+              <tr key={p.id}>
+                <td>{index + 1}</td>
+                <td>{p.name}</td>
+                <td>{p.user?.email || "N/A"}</td>
+                <td>{p.age}</td>
+                <td>{p.diagnosis}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p className="text-center text-muted">No patients found under you.</p>
+      )}
+    </div>
+  );
+};
+
+export default DoctorPatients;
