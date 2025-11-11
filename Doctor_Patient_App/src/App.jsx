@@ -1,6 +1,6 @@
 import React from "react";
 // ✅ Import Toastify
-import AddExistingPatients from "../../AddExistingPatients";
+import AddExistingPatients from "./pages/patients/AddExistingPatients";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
