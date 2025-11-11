@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { getDoctorById, deleteDoctor } from "../services/doctorService";
+import { getDoctorById, deleteDoctor } from "../../services/doctorService";
 
 function DoctorProfile() {
   const { id } = useParams();

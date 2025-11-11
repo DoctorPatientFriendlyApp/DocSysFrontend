@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getDoctorById, updateDoctor } from "../services/doctorService";
+import { getDoctorById, updateDoctor } from "../../services/doctorService";
+import { toast } from "react-toastify";
 
 function EditDoctor() {
   const { id } = useParams();
@@ -41,11 +42,11 @@ function EditDoctor() {
     e.preventDefault();
     try {
       await updateDoctor(id, doctor);
-      alert("Doctor profile updated successfully ✅");
+      toast.success("Doctor profile updated successfully ");
       navigate(`/doctors/${id}`); // Go back to profile page
     } catch (err) {
       console.error("Update failed:", err);
-      alert("Error updating doctor details ❌");
+      toast.error("Error updating doctor details ");
     }
   };
 

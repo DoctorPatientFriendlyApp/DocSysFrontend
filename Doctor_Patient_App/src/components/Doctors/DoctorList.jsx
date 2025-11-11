@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllDoctors, deleteDoctor } from "../services/doctorService";
+import { getAllDoctors, deleteDoctor } from "../../services/doctorService";
 import { Link } from "react-router-dom";
 
 function DoctorList() {

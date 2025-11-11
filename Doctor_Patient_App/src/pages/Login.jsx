@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { loginDoctor } from "../services/doctorService";
+import { loginDoctor } from "../services/doctorService"
 import { loginPatient } from "../services/patientService";
 import { toast } from "react-toastify";
 

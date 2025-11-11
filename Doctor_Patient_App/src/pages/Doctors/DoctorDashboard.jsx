@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SidebarDoctor from "../components/SidebarDoctor";
+import SidebarDoctor from "../../components/Doctors/SidebarDoctor";
 
 export default function DoctorDashboard() {
   const [doctor, setDoctor] = useState(null);

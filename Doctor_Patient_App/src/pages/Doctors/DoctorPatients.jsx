@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getPatientsByDoctorId } from "../services/doctorService";  
+import { getPatientsByDoctorId } from "../../services/doctorService";  
 import { useNavigate } from 'react-router-dom';
 
 const DoctorPatients = () => {
@@ -45,6 +45,7 @@ const DoctorPatients = () => {
               <th>Email</th>
               <th>Age</th>
               <th>Diagnosis</th>
+             <th> Action </th> 
             </tr>
           </thead>
           <tbody>
@@ -55,6 +56,11 @@ const DoctorPatients = () => {
                 <td>{p.user?.email || "N/A"}</td>
                 <td>{p.age}</td>
                 <td>{p.diagnosis}</td>
+                <td> <button type="button" className="btn btn-success btn-sm"
+                            onClick={() => navigate(`/patients/view/${p.id}`)} >
+                         View
+                     </button>
+               </td>
               </tr>
             ))}
           </tbody>

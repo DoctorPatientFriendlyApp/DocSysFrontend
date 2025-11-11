@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { addDoctor } from "../services/doctorService";
+// import { addDoctor } from "../../services/doctorService";
+import { toast } from "react-toastify";
+import { addDoctor } from "../../services/doctorService";
 
 function AddDoctor() {
   const [form, setForm] = useState({
@@ -41,11 +43,11 @@ function AddDoctor() {
     // ✅ Send request to backend
     try {
       await addDoctor(formData);
-      alert("Doctor added successfully!");
+      toast.success("Doctor added successfully!");
       navigate("/doctors");
     } catch (err) {
       console.error("Error adding doctor:", err);
-      alert("Failed to add doctor");
+      toast.error("Failed to add doctor");
     }
   };
 

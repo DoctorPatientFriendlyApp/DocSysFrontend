@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { addPatient } from "../services/patientService";
+import { addPatient } from "../../services/patientService";
 
 function AddPatient() {
   const { doctorId } = useParams(); // optional param

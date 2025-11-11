@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllPatients, deletePatient } from "../services/patientService";
+import { getAllPatients, deletePatient } from "../../services/patientService";
 import { Link } from "react-router-dom";
 
 function PatientList() {
@@ -15,8 +15,10 @@ function PatientList() {
   };
 
   const handleDelete = async (id) => {
-    await deletePatient(id);
-    fetchPatients();
+    if (window.confirm("Are you sure you want to delete this patient?")) {
+      await deletePatient(id);
+      fetchPatients();
+    }
   };
 
   return (
@@ -25,15 +27,16 @@ function PatientList() {
       <Link to="/patients/add" className="btn btn-primary mb-3">
         Add Patient
       </Link>
-      <table className="table table-bordered">
-        <thead>
+
+      <table className="table table-bordered table-striped align-middle">
+        <thead className="table-dark">
           <tr>
             <th>ID</th>
             <th>Name</th>
             <th>Age</th>
             <th>Mobile</th>
             <th>Blood Group</th>
-            <th>Action</th>
+            <th style={{ width: "220px" }}>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -45,9 +48,21 @@ function PatientList() {
               <td>{p.mobile}</td>
               <td>{p.bloodGroup}</td>
               <td>
-                <button className="btn btn-danger" onClick={() => handleDelete(p.id)}>
-                  Delete
-                </button>
+                <div className="btn-group" role="group">
+                  <Link
+                    to={`/patients/view/${p.id}`}
+                    className="btn btn-info btn-sm"
+                  >
+                    View
+                  </Link>
+                
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDelete(p.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
