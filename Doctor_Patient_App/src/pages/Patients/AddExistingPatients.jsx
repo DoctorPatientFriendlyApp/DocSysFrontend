@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getUnassignedPatients, assignPatientToDoctor } from "./Doctor_Patient_App/src/services/doctorService";
+import { getUnassignedPatients, assignPatientToDoctor } from "../../services/doctorService";
 import { toast } from "react-toastify";
 
 const AddExistingPatients = () => {
