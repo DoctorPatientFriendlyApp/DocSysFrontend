@@ -17,6 +17,7 @@ function PatientEdit() {
     bloodGroup: "",
     dob: "",
     address: "",
+    socialEconomicalStatus: "", 
     history: {
       currentHistory: "",
       pastHistory: "",
@@ -32,8 +33,84 @@ function PatientEdit() {
         sleep: "",
       },
     },
+
     reports: [],
     treatments: [],
+    patientDescription: {
+        breast: "",
+        ears: "",
+        eyes: "",
+        hair: "",
+        head: "",
+        hearing: "",
+        nails: "",
+        nose: "",
+        sensation: "",
+        skin: "",
+        smell: "",
+        taste: "",
+        tongue: "",
+        vision: "",
+    },
+
+    generalExamination: {
+       build: "",
+       clubbing: "",
+       cyanosis: "",
+       edema: "",
+       gait: "",
+       height: "",
+       icterus: "",
+       nourishment: "",
+       weight: "",
+    },
+
+    systemicExamination: {
+       respiratoryAuscultation: "",
+       respiratoryInspection: "",
+       respiratoryPalpation: "",
+       respiratoryPercussion: "",
+  
+       abdomenAuscultation: "",
+       abdomenInspection: "",
+       abdomenPalpation: "",
+       abdomenPercussion: "",
+  
+       cvsAuscultation: "",
+       cvsInspection: "",
+       cvsPalpation: "",
+       cvsPercussion: "",
+  
+       cranialReflexes: "",
+       motorReflexes: "",
+       peripheralReflexes: "",
+    },
+
+    vitalSigns: {
+      bloodPressure: "",
+      pulseRate: "",
+      respirationRate: "",
+      temperature: "", 
+    },
+
+   diagnosisDetails: {
+      differentialDiagnosis: "",
+      finalDiagnosis: "",
+      hahnemannianDiseaseClassification: "",
+      miasma: "",
+      investigationAdvice: "",
+      provisionalDiagnosis: "",
+      reasonForChoosingMedicine: "",
+      repertoryUsed: "",
+  },
+
+   prescription: {
+      advice: "",
+      followUp: "",
+      remedyWithPotency: "",
+      repetition: "",
+   },
+
   });
 
   useEffect(() => {
@@ -140,6 +217,76 @@ const handleAddReport = () => {
     setPatient({ ...patient, treatments: updatedTreatments });
   };
 
+
+
+const handlePatientDescriptionChange = (e) => {
+  const { name, value } = e.target;
+  setPatient({
+    ...patient,
+    patientDescription: {
+      ...patient.patientDescription,
+      [name]: value,
+    },
+  });
+};
+
+const handleGeneralExaminationChange = (e) => {
+  const { name, value } = e.target;
+  setPatient({
+    ...patient,
+    generalExamination: {
+      ...patient.generalExamination,
+      [name]: value,
+    },
+  });
+};
+
+const handleSystemicExamChange = (e) => {
+  const { name, value } = e.target;
+  setPatient({
+    ...patient,
+    systemicExamination: {
+      ...patient.systemicExamination,
+      [name]: value,
+    },
+  });
+};
+
+const handleVitalsChange = (e) => {
+  const { name, value } = e.target;
+  setPatient({
+    ...patient,
+    vitalSigns: {
+      ...patient.vitalSigns,
+      [name]: value,
+    },
+  });
+};
+
+const handleDiagnosisChange = (e) => {
+  const { name, value } = e.target;
+  setPatient({
+    ...patient,
+    diagnosisDetails: {
+      ...patient.diagnosisDetails,
+      [name]: value,
+    },
+  });
+};
+
+const handlePrescriptionChange = (e) => {
+  const { name, value } = e.target;
+  setPatient({
+    ...patient,
+    prescription: {
+      ...patient.prescription,
+      [name]: value,
+    },
+  });
+};
+
+
+
   // ----- Submit -----
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -198,6 +345,23 @@ const handleAddReport = () => {
             ))}
           </div>
         </div>
+ 
+                  {/* Patient Description */}
+                    <div className="card p-3 shadow-sm mb-4">
+                      <h5>🧍 Patient Description</h5>
+                      {Object.keys(patient.patientDescription).map((field) => (
+                        <div className="mb-3" key={field}>
+                        <label className="form-label">{field}</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              name={field}
+                              value={patient.patientDescription[field]}
+                              onChange={handlePatientDescriptionChange}
+                           />
+                        </div>
+                         ))}
+                  </div>
 
         {/* MEDICAL HISTORY */}
         <div className="card p-3 shadow-sm mb-4">
@@ -228,6 +392,75 @@ const handleAddReport = () => {
             </div>
           ))}
         </div>
+
+        <div className="card p-3 shadow-sm mb-4">
+        <h5>🩻 General Examination</h5>
+
+  {Object.keys(patient.generalExamination).map((field) => (
+    <div className="mb-3" key={field}>
+      <label className="form-label">{field}</label>
+      <input
+        type="text"
+        className="form-control"
+        name={field}
+        value={patient.generalExamination[field]}
+        onChange={handleGeneralExaminationChange}
+      />
+    </div>
+  ))}
+</div>
+
+           <div className="card p-3 shadow-sm mb-4">
+           <h5>🫁 Systemic Examination</h5>
+
+  {Object.keys(patient.systemicExamination).map((field) => (
+    <div className="mb-3" key={field}>
+      <label className="form-label">{field}</label>
+      <input
+        type="text"
+        className="form-control"
+        name={field}
+        value={patient.systemicExamination[field]}
+        onChange={handleSystemicExamChange}
+      />
+    </div>
+  ))}
+</div>
+
+         <div className="card p-3 shadow-sm mb-4">
+  <h5>❤️ Vital Signs</h5>
+
+  {Object.keys(patient.vitalSigns).map((field) => (
+    <div className="mb-3" key={field}>
+      <label className="form-label">{field}</label>
+      <input
+        type="text"
+        className="form-control"
+        name={field}
+        value={patient.vitalSigns[field]}
+        onChange={handleVitalsChange}
+      />
+    </div>
+  ))}
+</div>
+   
+    <div className="card p-3 shadow-sm mb-4">
+  <h5>🧪 Diagnosis Details</h5>
+
+  {Object.keys(patient.diagnosisDetails).map((field) => (
+    <div className="mb-3" key={field}>
+      <label className="form-label">{field}</label>
+      <textarea
+        className="form-control"
+        name={field}
+        rows="2"
+        value={patient.diagnosisDetails[field]}
+        onChange={handleDiagnosisChange}
+      />
+    </div>
+  ))}
+</div>
+
 
         {/* REPORTS */}
         <div className="card p-3 shadow-sm mb-4">
@@ -332,7 +565,25 @@ const handleAddReport = () => {
             <p>No treatments available.</p>
           )}
         </div>
+  
+      <div className="card p-3 shadow-sm mb-4">
+  <h5>💊 Prescription</h5>
 
+  {Object.keys(patient.prescription).map((field) => (
+    <div className="mb-3" key={field}>
+      <label className="form-label">{field}</label>
+      <input
+        type="text"
+        className="form-control"
+        name={field}
+        value={patient.prescription[field]}
+        onChange={handlePrescriptionChange}
+      />
+    </div>
+  ))}
+</div>
+
+ 
         {/* ACTION BUTTONS */}
         <div className="d-flex justify-content-center gap-3 mt-3">
           <button type="submit" className="btn btn-success px-4">
