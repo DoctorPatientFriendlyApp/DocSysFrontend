@@ -34,6 +34,7 @@ const AddExistingPatients = () => {
 
   return (
     <div className="container mt-4">
+      
       <h3 className="mb-4 text-center">Add Existing Patients</h3>
       {patients.length > 0 ? (
         <table className="table table-striped">
