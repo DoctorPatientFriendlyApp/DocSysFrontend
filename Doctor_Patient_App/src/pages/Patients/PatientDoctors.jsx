@@ -27,7 +27,7 @@ export default function PatientDoctors() {
             <div key={doc.id} className="list-group-item">
               <h5>{doc.name}</h5>
               <p><strong>Specialization:</strong> {doc.specialization}</p>
-              <p><strong>Email:</strong> {doc.user.email}</p>
+              <p><strong>Email:</strong> {doc.email}</p>
               <p><strong>Mobile:</strong> {doc.mobile}</p>
             </div>
           ))}
