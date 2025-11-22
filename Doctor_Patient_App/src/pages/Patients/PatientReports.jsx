@@ -4,19 +4,19 @@ import { getPatientById } from "../../services/patientService";
 import { useParams } from "react-router-dom";
 
 export default function PatientReports() {
-   const {patientId } = useParams();
+   const {id } = useParams();
   const [patient, setPatient] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const reportsPerPage = 10; // Show 10 reports per page
+  const reportsPerPage = 10; // Show 10 report  s per page
 
   // Fetch patient info from localStorage on component mount
 useEffect(() => {
   const fetchPatient = async () => {
     try {
 
-      console.log("Patient ID:",patientId);
+      console.log("Patient ID:",id);
 
-      const data = await getPatientById(patientId);
+      const data = await getPatientById(id);
       console.log("Fetched patient data (Patients Report):", data);
       setPatient(data); // this now has updated reports
     } catch (err) {
