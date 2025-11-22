@@ -1,4 +1,4 @@
-import React from "react";
+import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function NavBar() {
@@ -11,44 +11,25 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary px-4">
-      <Link className="navbar-brand fw-bold" to="/">🏥 HealthSync</Link>
+    <Navbar bg="primary" variant="dark" expand="lg">
+      <Container>
+        <Navbar.Brand as={Link} to="/">🏥 HealthSync</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto">
+            <Nav.Link as={Link} to="/doctors">Doctors</Nav.Link>
+            <Nav.Link as={Link} to="/patients">Patients</Nav.Link>
+            <Nav.Link as={Link} to="/doctor/home">Doctor Dashboard</Nav.Link>
+            <Nav.Link as={Link} to="/patient/home">Patient Dashboard</Nav.Link>
 
-      <div className="collapse navbar-collapse">
-        <ul className="navbar-nav ms-auto align-items-center">
-          <li className="nav-item">
-            <Link className="nav-link" to="/doctors">Doctors</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/patients">Patients</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/doctor/home">Doctor Dashboard</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/patient/home">Patient Dashboard</Link>
-          </li>
-
-          {/* 🔹 Conditionally render Login or Logout button */}
-          <li className="nav-item ms-3">
             {user ? (
-              <button
-                className="btn btn-danger btn-sm"
-                onClick={handleLogout}
-              >
-                Logout
-              </button>
+              <Button variant="danger" size="sm" onClick={handleLogout}>Logout</Button>
             ) : (
-              <button
-                className="btn btn-light btn-sm text-primary"
-                onClick={() => navigate("/login")}
-              >
-                Login
-              </button>
+              <Button variant="light" size="sm" onClick={() => navigate("/login")}>Login</Button>
             )}
-          </li>
-        </ul>
-      </div>
-    </nav>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
