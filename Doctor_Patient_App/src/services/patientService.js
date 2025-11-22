@@ -16,6 +16,7 @@ export const getAllPatients = async () => {
 
 export const getPatientById = async (id) => {
   const res = await axios.get(`${BASE_URL}/patients/${id}`);
+  console.log(" Patient "+ res.data)
   return res.data;
 }
 
@@ -28,10 +29,39 @@ export const deletePatient = async (id) => {
   await axios.delete(`${BASE_URL}/patients/${id}`);
 };
 
+// export const updatePatient = async (id, patientData) => {
+//   const res = await axios.put(`${BASE_URL}/patients/updatepatient/${id}`, patientData);
+//   return res.data;
+// }
+
+// --------------------------------------------------------------------
 export const updatePatient = async (id, patientData) => {
-  const res = await axios.put(`${BASE_URL}/patients/updatepatient/${id}`, patientData);
+  console.log(" update " ,patientData);
+  const formData = new FormData();
+
+  // JSON
+  formData.append(
+    "patient",
+    new Blob([JSON.stringify(patientData)], { type: "application/json" })
+  );
+
+  // FILES
+  patientData.reports.forEach((r) => {
+    if (r.file instanceof File) {
+      formData.append("files", r.file);
+    }
+  });
+
+  const res = await axios.put(
+    `${BASE_URL}/patients/updatepatient/${id}`,
+    formData,
+    { headers: { "Content-Type": "multipart/form-data" } }
+  );
+   console.log(" after update "+ res)
   return res.data;
-}
+};
+
+//----------------------------------------------------------------------
 
 export const getDoctorsForPatient = async (id) => {
   const res = await axios.get(`${API_URL}/${id}/doctors`);
