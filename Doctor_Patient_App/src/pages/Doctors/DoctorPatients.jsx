@@ -44,20 +44,20 @@ const DoctorPatients = () => {
               <th>Name</th>
               <th>Email</th>
               <th>Age</th>
-              <th>Diagnosis</th>
+              <th>Address </th>
              <th> Action </th> 
             </tr>
           </thead>
           <tbody>
-            {patients.map((p, index) => (
-              <tr key={p.id}>
+            {patients.map((patient, index) => (
+              <tr key={patient.id}>
                 <td>{index + 1}</td>
-                <td>{p.name}</td>
-                <td>{p.user?.email || "N/A"}</td>
-                <td>{p.age}</td>
-                <td>{p.diagnosis}</td>
+                <td>{patient.name}</td>
+                <td>{patient.email}</td>
+                <td>{patient.age}</td>
+                <td>{patient.address}</td>
                 <td> <button type="button" className="btn btn-success btn-sm"
-                            onClick={() => navigate(`/patients/view/${p.id}`)} >
+                            onClick={() => navigate(`/patients/view/${patient.id}`)} >
                          View
                      </button>
                </td>
