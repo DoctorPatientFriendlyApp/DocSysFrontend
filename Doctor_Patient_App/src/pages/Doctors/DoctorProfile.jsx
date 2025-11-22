@@ -38,12 +38,12 @@ function DoctorProfile() {
         className="card shadow-lg border-0 mx-auto"
         style={{ maxWidth: "650px", borderRadius: "15px" }}
       >
-        <div className="card-body text-center p-4">
+        <div className="card-body text-center p-4 ">
           {/* Avatar */}
           <img
             src="https://cdn-icons-png.flaticon.com/512/387/387561.png"
             alt="Doctor Avatar"
-            className="rounded-circle mb-3 border border-3 border-primary"
+            className="rounded-circle mb-3 border border-3 border-primary d-block mx-auto"
             width="130"
             height="130"
           />
@@ -87,7 +87,7 @@ function DoctorProfile() {
             </Link>
 
             <Link
-              to={`/doctors/${id}/patients`}
+              to="/doctor/patients"
               className="btn btn-info text-white"
             >
               👨‍⚕️ View Patients
