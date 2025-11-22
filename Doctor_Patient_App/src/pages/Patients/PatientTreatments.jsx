@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import SidebarPatient from "../../components/Patients/SidebarPatient";
 import { getPatientById } from "../../services/patientService";
+import { useParams } from "react-router-dom";
 
 export default function PatientTreatments() {
+
+  const {id} = useParams();
   const [patient, setPatient] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const treatmentsPerPage = 10;
@@ -14,7 +17,7 @@ export default function PatientTreatments() {
         const storedUser = JSON.parse(localStorage.getItem("user"));
         const patientId = storedUser?.data?.id || storedUser?.id;
 
-        const data = await getPatientById(patientId); // fetch latest data from backend
+        const data = await getPatientById(id); // fetch latest data from backend
         console.log("Fetched Patient Treatments:", data);
         setPatient(data); // now includes updated treatments
       } catch (e) {
