@@ -8,7 +8,7 @@ export default function PatientDoctors() {
 
   useEffect(() => {
     fetchDoctors();
-  }, []);
+  }, [id]);
 
    
   const fetchDoctors = async () => {
@@ -18,6 +18,9 @@ export default function PatientDoctors() {
   };
 
   return (
+    <>
+  
+  
     <div className="container mt-4">
       <h3 className="text-success mb-4">🩺 My Doctors</h3>
       <Link to="/patients/dashboard" className="btn btn-secondary mb-3">
@@ -40,5 +43,6 @@ export default function PatientDoctors() {
         )}
       </div>
     </div>
+  </>
   );
 }
