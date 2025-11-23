@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { getPatientById, deletePatient } from "../../services/patientService";
 import { Tabs, Tab } from "react-bootstrap"; // Make sure react-bootstrap is installed
 
+
 function PatientView() {
   const { id } = useParams();
   const [patient, setPatient] = useState(null);
