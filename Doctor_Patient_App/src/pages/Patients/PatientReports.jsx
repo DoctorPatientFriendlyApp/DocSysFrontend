@@ -9,6 +9,12 @@ export default function PatientReports() {
   const [currentPage, setCurrentPage] = useState(1);
   const reportsPerPage = 10; // Show 10 report  s per page
 
+  // SIDEBAR STATE
+ // Sidebar Toggle State
+   const [showSidebar, setShowSidebar] = useState(false);
+   const toggleSidebar = () => setShowSidebar(!showSidebar);
+
+
   // Fetch patient info from localStorage on component mount
 useEffect(() => {
   const fetchPatient = async () => {
@@ -70,8 +76,13 @@ useEffect(() => {
 
   return (
     <div className="d-flex flex-column flex-md-row min-vh-100">
-      {/* Sidebar */}
-      <SidebarPatient patient={patient}  />
+
+       {/* OFFCANVAS SIDEBAR */}
+           <SidebarPatient
+             patient={patient}
+             show={showSidebar}
+             handleClose={toggleSidebar}
+           />
 
       {/* Main Content */}
       <div className="p-4 flex-grow-1 bg-light w-100">
