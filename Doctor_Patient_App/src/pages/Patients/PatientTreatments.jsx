@@ -10,6 +10,10 @@ export default function PatientTreatments() {
   const [currentPage, setCurrentPage] = useState(1);
   const treatmentsPerPage = 10;
 
+  // Sidebar Toggle State
+     const [showSidebar, setShowSidebar] = useState(false);
+     const toggleSidebar = () => setShowSidebar(!showSidebar);
+
   useEffect(() => {
     const fetchPatient = async () => {
       try {
@@ -44,8 +48,13 @@ export default function PatientTreatments() {
 
   return (
     <div className="d-flex flex-column flex-md-row min-vh-100">
-      <SidebarPatient patient={patient} />
-
+       {/* Responsive sidebar */}
+        <SidebarPatient
+                   patient={patient}
+                   show={showSidebar}
+                   handleClose={toggleSidebar}
+                 />
+      
       <div className="p-4 flex-grow-1 bg-light w-100">
         <h2 className="text-success">💊 My Treatments</h2>
         <hr />
