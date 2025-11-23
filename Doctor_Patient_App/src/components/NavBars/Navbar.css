@@ -1,0 +1,12 @@
+.navbar-gradient {
+  background: linear-gradient(90deg, #0d6efd, #6610f2);
+  border-radius: 0 0 15px 15px;
+}
+
+.btn-hover-3d {
+  transition: all 0.3s ease;
+}
+.btn-hover-3d:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}

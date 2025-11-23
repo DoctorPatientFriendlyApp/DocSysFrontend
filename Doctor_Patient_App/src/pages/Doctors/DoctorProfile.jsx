@@ -93,17 +93,14 @@ function DoctorProfile() {
               👨‍⚕️ View Patients
             </Link>
 
-            <button
+            {/* <button
               onClick={handleDelete}
               className="btn btn-danger"
             >
               🗑️ Delete Profile
-            </button>
+            </button> */}
           </div>
 
-          <Link to="/doctors" className="btn btn-outline-primary mt-4 w-50">
-            ← Back to Doctor List
-          </Link>
         </div>
       </div>
     </div>
