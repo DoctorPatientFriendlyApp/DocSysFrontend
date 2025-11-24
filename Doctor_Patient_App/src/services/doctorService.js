@@ -17,10 +17,20 @@ export const getDoctorById = async (id) => {
   return res.data;
 };
 
-export const addDoctor = async (doctorData) => {
-  const res = await axios.post(`${BASE_URL}/doctors`, doctorData);
+// export const addDoctor = async (doctorData) => {
+//   const res = await axios.post(`${BASE_URL}/doctors`, doctorData);
+//   return res.data;
+// };
+
+export const addDoctor = async (doctorFormData) => {
+  const res = await axios.post(`${BASE_URL}/doctors`, doctorFormData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   return res.data;
 };
+
 
 export const deleteDoctor = async (id) => {
   await axios.delete(`${BASE_URL}/doctors/${id}`);
