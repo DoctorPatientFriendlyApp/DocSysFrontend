@@ -1,5 +1,6 @@
-import PublicNav from "../components/NavBars/PublicNav";
+// import PublicNav from "../components/NavBars/PublicNav";
 import { Outlet } from "react-router-dom";
+
 
 
 export default function PublicLayout() {
@@ -7,6 +8,7 @@ export default function PublicLayout() {
     <>
       {/* <PublicNav /> */}
       <Outlet />
+     
     </>
   );
 }

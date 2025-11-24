@@ -1,0 +1,4 @@
+.text-white:hover {
+  color: #0d6efd; /* Bootstrap primary color */
+  text-decoration: underline;
+}
