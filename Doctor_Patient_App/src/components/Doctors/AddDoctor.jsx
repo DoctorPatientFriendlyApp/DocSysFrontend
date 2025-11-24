@@ -34,9 +34,13 @@ function AddDoctor() {
     e.preventDefault();
 
     const formData = new FormData();
-    for (const key in form) {
-      formData.append(key, form[key]);
-    }
+  for (const key in form) {
+    if(key !== "patientIds") formData.append(key, form[key]);
+  }
+
+  if(form.patientIds){
+    form.patientIds.split(",").forEach(id => formData.append("patientIds", id));
+  }
     if (file) formData.append("certificate", file);
 
     try {
