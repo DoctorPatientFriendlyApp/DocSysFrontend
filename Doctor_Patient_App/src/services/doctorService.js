@@ -22,6 +22,19 @@ export const addDoctor = async (doctorData) => {
   return res.data;
 };
 
+// export const addDoctor = async (data) => {
+//   const isFormData = data instanceof FormData;
+
+//   return axios.post("/doctor", data, {
+//     headers: {
+//       "Content-Type": isFormData
+//         ? "multipart/form-data"
+//         : "application/json"
+//     }
+//   });
+// };
+
+
 // export const addDoctor = async (doctorFormData) => {
 //   const res = await axios.post(`${BASE_URL}/doctors`, doctorFormData, {
 //     headers: {

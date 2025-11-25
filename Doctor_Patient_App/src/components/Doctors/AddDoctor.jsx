@@ -19,16 +19,16 @@ function AddDoctor() {
     patientIds: "",
   });
 
-  const [file, setFile] = useState(null);
+  // const [file, setFile] = useState(null);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
+  // const handleFileChange = (e) => {
+  //   setFile(e.target.files[0]);
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,10 +44,12 @@ function AddDoctor() {
       // }
 
 // if (file) formData.append("certificate", file);
-    for (const key in form) {
+
+
+    for(const key in form) {
       formData.append(key, form[key]);
     }
-    if (file) formData.append("certificate", file);
+    // if (file) formData.append("certificate", file);
 
     try {
       await addDoctor(formData);
@@ -125,10 +127,10 @@ function AddDoctor() {
               <input name="pan" placeholder="PAN" onChange={handleChange} className="form-control" />
             </div>
 
-            <div className="mb-3">
-              <label htmlFor="certificate" className="form-label">📄 Upload Degree Certification</label>
+            {/* <div className="mb-3">
+              <label htmlFor="certificate" className="form-label">📄Upload Degree Certification</label>
               <input type="file" title='Upload Certificate' name="certificate" id="certificate" accept=".pdf,.jpg,.png" onChange={handleFileChange} className="form-control" />
-            </div>
+            </div> */}
 
             <div className="mb-3">
               <input name="patientIds" placeholder="Patient IDs (comma-separated)" onChange={handleChange} className="form-control" />
