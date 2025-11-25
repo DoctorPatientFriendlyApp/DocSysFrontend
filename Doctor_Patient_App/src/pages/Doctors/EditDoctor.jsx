@@ -17,7 +17,7 @@ function EditDoctor() {
     address: "",
     aadhaar: "",
     pan: "",
-    certificateUrl: ""
+    certificateUrl: null // When doctor details come from backend, certificateUrl comes but certificateFile
   });
 
   // Fetch doctor details to pre-fill the form
@@ -38,17 +38,46 @@ function EditDoctor() {
     setDoctor({ ...doctor, [e.target.name]: e.target.value });
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     await updateDoctor(id, doctor);
+  //     toast.success("Doctor profile updated successfully ");
+  //     navigate(`/doctors/${id}`); // Go back to profile page
+  //   } catch (err) {
+  //     console.error("Update failed:", err);
+  //     toast.error("Error updating doctor details ");
+  //   }
+  // };
+
+  //  Handle multi part file handling 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await updateDoctor(id, doctor);
-      toast.success("Doctor profile updated successfully ");
-      navigate(`/doctors/${id}`); // Go back to profile page
-    } catch (err) {
-      console.error("Update failed:", err);
-      toast.error("Error updating doctor details ");
+  e.preventDefault();
+
+  const formData = new FormData();
+
+  // Loop through all doctor fields except file
+  for (const key in doctor) {
+    if (key !== "certificateFile") {
+      formData.append(key, doctor[key]);
     }
-  };
+  }
+
+  // Append file only if selected
+  if (doctor.certificateFile) {
+    formData.append("certificate", doctor.certificateFile);
+  }
+
+  try {
+    await updateDoctor(id, formData);
+    toast.success("Doctor profile updated successfully!");
+    navigate(`/doctors/${id}`);
+  } catch (err) {
+    console.error("Update failed:", err);
+    toast.error("Error updating doctor details");
+  }
+};
+
 
   return (
     <div className="container mt-4">
@@ -165,10 +194,16 @@ function EditDoctor() {
           <div className="mb-3">
            <label>Upload Certificate</label>
             <input
-               type="file"
-               name="certificateFile"
-               accept=".pdf,.jpg,.jpeg,.png"
-               onChange={(e) => setDoctor({ ...doctor, certificateFile: e.target.files[0] })}
+                type="file"
+                name="certificateFile"
+                accept=".pdf,.jpg,.jpeg,.png"
+                onChange={(e) =>
+                              setDoctor({
+                                ...doctor,
+                                certificateFile: e.target.files[0],
+                                certificateUrl: doctor.certificateUrl // don't remove old URL
+                              })
+                            }
              className="form-control"
            />
                 {doctor.certificateUrl && (
