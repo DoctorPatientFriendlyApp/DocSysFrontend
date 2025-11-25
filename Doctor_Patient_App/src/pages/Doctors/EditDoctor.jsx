@@ -89,14 +89,21 @@ const handleSubmit = async (e) => {
       const formData = new FormData();
 
       // Append normal fields
-      for (const key in doctor) {
-        if (key !== "certificateFile") {
-          formData.append(key, doctor[key]);
-        }
-      }
+     for (const key in doctor) {
+  // ❌ do not send patientIds
+  if (key === "patientIds") continue;
 
-      // Append file
-      formData.append("certificate", doctor.certificateFile);
+  // ❌ do not send certificateFile here (handled below)
+  if (key === "certificateFile") continue;
+
+  // normal fields
+  formData.append(key, doctor[key]);
+}
+
+// ✔ only upload if file is actually selected
+if (doctor.certificateFile instanceof File) {
+  formData.append("certificate", doctor.certificateFile);
+}
 
       response = await updateDoctor(id, formData, true); // <-- multipart flag
     }
