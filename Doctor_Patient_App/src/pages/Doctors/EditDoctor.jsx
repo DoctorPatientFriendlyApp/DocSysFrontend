@@ -51,30 +51,67 @@ function EditDoctor() {
   // };
 
   //  Handle multi part file handling 
-  const handleSubmit = async (e) => {
+//   const handleSubmit = async (e) => {
+//   e.preventDefault();
+
+//   const formData = new FormData();
+
+//   // Loop through all doctor fields except file
+//   for (const key in doctor) {
+//     if (key !== "certificateFile") {
+//       formData.append(key, doctor[key]);
+//     }
+//   }
+
+//   // Append file only if selected
+//   if (doctor.certificateFile) {
+//     formData.append("certificate", doctor.certificateFile);
+//   }
+
+//   try {
+//     await updateDoctor(id, formData);
+//     toast.success("Doctor profile updated successfully!");
+//     navigate(`/doctors/${id}`);
+//   } catch (err) {
+//     console.error("Update failed:", err);
+//     toast.error("Error updating doctor details");
+//   }
+// };
+
+const handleSubmit = async (e) => {
   e.preventDefault();
 
-  const formData = new FormData();
-
-  // Loop through all doctor fields except file
-  for (const key in doctor) {
-    if (key !== "certificateFile") {
-      formData.append(key, doctor[key]);
-    }
-  }
-
-  // Append file only if selected
-  if (doctor.certificateFile) {
-    formData.append("certificate", doctor.certificateFile);
-  }
-
   try {
-    await updateDoctor(id, formData);
-    toast.success("Doctor profile updated successfully!");
+    let response;
+
+    // If file exists → use FormData (multipart)
+    if (doctor.certificateFile) {
+      const formData = new FormData();
+
+      // Append normal fields
+      for (const key in doctor) {
+        if (key !== "certificateFile") {
+          formData.append(key, doctor[key]);
+        }
+      }
+
+      // Append file
+      formData.append("certificate", doctor.certificateFile);
+
+      response = await updateDoctor(id, formData, true); // <-- multipart flag
+    }
+    //------------------------------------------------------------------------------
+    // No file → send JSON update
+    else {
+      response = await updateDoctor(id, doctor, false); // <-- json flag
+    }
+
+    toast.success("Doctor updated successfully!");
     navigate(`/doctors/${id}`);
+
   } catch (err) {
-    console.error("Update failed:", err);
-    toast.error("Error updating doctor details");
+    console.error(err);
+    toast.error("Update failed.");
   }
 };
 

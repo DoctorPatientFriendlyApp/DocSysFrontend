@@ -55,12 +55,20 @@ export const deleteDoctor = async (id) => {
 //   return res.data;
 // }
 //  Sending multipart 
-export const updateDoctor = async (id, formData) => {
-  const res = await axios.put(`${BASE_URL}/doctors/${id}/edit`, formData, {
-    headers: { "Content-Type": "multipart/form-data" },
-  });
-  return res.data;
+export const updateDoctor = async (id, data, isMultipart) => {
+  if (isMultipart) {
+    // Multipart request
+    const res = await axios.put(`${BASE_URL}/doctors/${id}/edit`, data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return res.data;
+  } else {
+    // JSON request
+    const res = await axios.put(`${BASE_URL}/doctors/${id}/edit-json`, data);
+    return res.data;
+  }
 };
+
 
 
 export const getPatientsByDoctorId = async (doctorId) => {

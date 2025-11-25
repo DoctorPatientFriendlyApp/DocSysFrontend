@@ -5,6 +5,8 @@ import { addDoctor } from "../../services/doctorService";
 import { FaUser, FaEnvelope, FaLock, FaPhone, FaAddressCard, FaFileAlt, FaUserMd } from "react-icons/fa";
 
 function AddDoctor() {
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -32,6 +34,9 @@ function AddDoctor() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setIsSubmitting(true);
+   
 
     const formData = new FormData();
 
@@ -136,7 +141,7 @@ function AddDoctor() {
               <input name="patientIds" placeholder="Patient IDs (comma-separated)" onChange={handleChange} className="form-control" />
             </div>
 
-            <button type="submit" className="btn btn-success w-100 mb-2">Register Doctor</button>
+            <button type="submit" disabled={isSubmitting} className="btn btn-success w-100 mb-2"> {isSubmitting ? "Submitting..." : " Register Doctor"} </button>
             <Link to="/login" className="d-block text-center text-decoration-none">Already registered? Login here</Link>
           </form>
         </div>

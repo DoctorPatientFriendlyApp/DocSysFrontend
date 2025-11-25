@@ -8,6 +8,8 @@ function AddPatient() {
   const { doctorId } = useParams();
   const navigate = useNavigate();
 
+  const[isSubmitting, setIsSubmitting] = useState(false);
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -50,6 +52,8 @@ function AddPatient() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+   
+     setIsSubmitting(true);
 
     // ✅ Validation: check required fields
     if (!form.name || !form.email || !form.password) {
@@ -238,8 +242,8 @@ function AddPatient() {
                 disabled={!!doctorId}
               />
 
-              <button type="submit" className="btn btn-success w-100 mb-2">
-                Register Patient
+              <button type="submit" disabled={isSubmitting} className="btn btn-success w-100 mb-2">
+                {isSubmitting ? "Submitting..." : "Register Patient"} 
               </button>
             </form>
 
