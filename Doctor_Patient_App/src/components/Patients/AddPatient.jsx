@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Spinner from 'react-bootstrap/Spinner';
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { addPatient } from "../../services/patientService";
 import { toast, ToastContainer } from "react-toastify";
@@ -52,7 +53,8 @@ function AddPatient() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   
+    
+     if (isSubmitting) return; // 🔥 Prevent double click
      setIsSubmitting(true);
 
     // ✅ Validation: check required fields
@@ -68,7 +70,8 @@ function AddPatient() {
     } catch (err) {
       console.error(err);
       toast.error("Failed to register patient. Try again!");
-    }
+       setIsSubmitting(false); // 🔥 re-enable button after error
+    } 
   };
 
   return (
@@ -78,7 +81,8 @@ function AddPatient() {
         <div className="col-lg-7 col-md-9">
           <div className="card shadow-lg p-4 border-0 rounded-4">
             <h2 className="text-center text-primary mb-4">Register Patient</h2>
-            <form onSubmit={handleSubmit}>
+                                          {/* disable key press  */}
+         <form onSubmit={handleSubmit} onKeyDown={(e) => e.key === "Enter" && e.target.tagName !== "TEXTAREA" && e.preventDefault()}>
 
               {/* Row for Name, Email */}
               <div className="row mb-3">
@@ -243,7 +247,21 @@ function AddPatient() {
               />
 
               <button type="submit" disabled={isSubmitting} className="btn btn-success w-100 mb-2">
-                {isSubmitting ? "Submitting..." : "Register Patient"} 
+                {isSubmitting ? (
+                        <>
+                          <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                            className="me-2"
+                          />
+                          Submitting...
+                        </>
+                      ) : (
+                        "Register Patient "
+                      )}
               </button>
             </form>
 

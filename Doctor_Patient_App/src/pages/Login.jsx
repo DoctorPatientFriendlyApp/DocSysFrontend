@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Spinner from 'react-bootstrap/Spinner';
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { loginDoctor } from "../services/doctorService"
@@ -7,6 +8,7 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "", role: "DOCTOR" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -15,6 +17,10 @@ const Login = () => {
 
  const handleSubmit = async (e) => {
   e.preventDefault();
+
+  if(isSubmitting) return;
+
+  setIsSubmitting(true);
 
   const loginData = {
     email: form.email,
@@ -42,7 +48,7 @@ const Login = () => {
     <div className="container mt-5" style={{ maxWidth: "450px" }}>
       <h2 className="text-center mb-4">Login</h2>
 
-      <form onSubmit={handleSubmit} className="border p-4 rounded shadow">
+      <form onSubmit={handleSubmit} className="border p-4 rounded shadow" onKeyDown={(e) => e.key === "Enter" && e.target.tagName !== "TEXTAREA" && e.preventDefault()}>
         <div className="mb-3">
           <label className="form-label">Role</label>
           <select
@@ -82,8 +88,22 @@ const Login = () => {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary w-100">
-          Login
+        <button type="submit" disabled={isSubmitting} className="btn btn-primary w-100">
+           {isSubmitting ? (
+                        <>
+                          <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                            className="me-2"
+                          />
+                          Submitting...
+                        </>
+                      ) : (
+                        "Login"
+                      )}
         </button>
       </form>
      <Link

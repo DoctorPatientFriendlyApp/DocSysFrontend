@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Spinner from 'react-bootstrap/Spinner';
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { addDoctor } from "../../services/doctorService";
@@ -34,7 +35,7 @@ function AddDoctor() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (isSubmitting) return; // 🔥 Prevent double click
     setIsSubmitting(true);
    
 
@@ -63,6 +64,7 @@ function AddDoctor() {
     } catch (err) {
       console.error("Error adding doctor:", err);
       toast.error("Failed to add doctor");
+      setIsSubmitting(false); // 🔥 re-enable button after error
     }
   };
 
@@ -73,8 +75,8 @@ function AddDoctor() {
           <h3 className="card-title text-center mb-4 text-primary">
             <FaUserMd className="me-2" /> Register Doctor
           </h3>
-
-          <form onSubmit={handleSubmit}>
+                                          {/* Disable Enter key multi-submission */}
+          <form onSubmit={handleSubmit}  onKeyDown={(e) => e.key === "Enter" && e.target.tagName !== "TEXTAREA" && e.preventDefault()}>
 
             <div className="mb-3 input-group">
               <span className="input-group-text"><FaEnvelope /></span>
@@ -141,7 +143,23 @@ function AddDoctor() {
               <input name="patientIds" placeholder="Patient IDs (comma-separated)" onChange={handleChange} className="form-control" />
             </div>
 
-            <button type="submit" disabled={isSubmitting} className="btn btn-success w-100 mb-2"> {isSubmitting ? "Submitting..." : " Register Doctor"} </button>
+            <button type="submit" disabled={isSubmitting} className="btn btn-success w-100 mb-2">
+               {isSubmitting ? (
+                        <>
+                          <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                            className="me-2"
+                          />
+                          Submitting...
+                        </>
+                      ) : (
+                        "Register Doctor"
+                      )}
+           </button>
             <Link to="/login" className="d-block text-center text-decoration-none">Already registered? Login here</Link>
           </form>
         </div>

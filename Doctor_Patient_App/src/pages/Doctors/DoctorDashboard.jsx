@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SidebarDoctor from "../../components/Doctors/SidebarDoctor";
+import { getDoctorById } from "../../services/doctorService";
 
 export default function DoctorDashboard() {
 
@@ -9,17 +10,31 @@ export default function DoctorDashboard() {
   const [showSidebar, setShowSidebar] = useState(false);
   const toggleSidebar = () => setShowSidebar(!showSidebar);
 
+  // useEffect(() => {
+  //   const storedUser = localStorage.getItem("user");
+  //   if (storedUser) {
+  //     try {
+  //       const parsed = JSON.parse(storedUser);
+  //       console.log("Parsed user data:", parsed);
+  //       setDoctor(parsed.data || parsed);
+  //     } catch (e) {
+  //       console.error("Error parsing doctor info:", e);
+  //     }
+  //   }
+  // }, []);
+  
+  //  Latest doctor updates should be rendered
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      try {
-        const parsed = JSON.parse(storedUser);
-        setDoctor(parsed.data || parsed);
-      } catch (e) {
-        console.error("Error parsing doctor info:", e);
-      }
-    }
-  }, []);
+  const { id } = JSON.parse(localStorage.getItem("user"));
+  fetchDoctor(id);
+   }, []);
+
+  async function fetchDoctor(id) {
+    const data = await getDoctorById(id);
+    console.log(data);
+    setDoctor(data);
+  }
+
 
   const firstLetter = doctor?.name?.charAt(0).toUpperCase();
 
